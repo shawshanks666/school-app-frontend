@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// ... (apiClient and interceptor setup remains the same)
-
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://school-app-backend-7loi.onrender.com';
 
 const apiClient = axios.create({
   baseURL: API_URL,
