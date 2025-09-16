@@ -8,6 +8,7 @@ import {
 import DashboardPage from './pages/DashboardPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/Register'; // Import the new page
+import StatusCheckPage from './pages/StatusCheckPage';
 
 /**
  * A component to protect routes that require authentication.
@@ -34,7 +35,7 @@ function App() {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
-          {/* You can add other protected pages here */}
+          <Route path="/status-check" element={<StatusCheckPage />} />
         </Route>
       </Routes>
     </Router>

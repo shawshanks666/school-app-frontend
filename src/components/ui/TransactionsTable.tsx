@@ -120,7 +120,7 @@ export default function TransactionsTable() {
 
   return (
     <div className="flex flex-col h-full space-y-4">
-      <div className="flex flex-col sm:flex-row items-center gap-4">
+      <div className="text-white flex flex-col sm:flex-row items-center gap-4">
         <Select value={statusFilter} onValueChange={handleFilterChange}>
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by status" />
