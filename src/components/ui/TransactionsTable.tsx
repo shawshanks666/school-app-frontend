@@ -34,6 +34,7 @@ interface Transaction {
 export default function TransactionsTable() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -48,11 +49,11 @@ export default function TransactionsTable() {
 
   useEffect(() => {
     const params: { [key: string]: string } = {
-      page: page.toString(),
-      status: statusFilter,
-      sortBy,
-      order: sortOrder,
-      schoolId: schoolIdFilter,
+        page: page.toString(),
+        status: statusFilter,
+        sortBy,
+        order: sortOrder,
+        schoolId: schoolIdFilter,
     };
     
     if (page === 1) delete params.page;
@@ -64,27 +65,27 @@ export default function TransactionsTable() {
     setSearchParams(params, { replace: true });
 
     const fetchTransactions = async () => {
-      try {
-        setIsLoading(true);
-        const filterStatus = statusFilter === 'all' ? undefined : statusFilter;
-        const filterSchoolId = schoolIdFilter === '' ? undefined : schoolIdFilter;
-        const response = await getTransactions({
-          page,
-          status: filterStatus,
-          schoolId: filterSchoolId,
-          sortBy,
-          order: sortOrder,
-        });
-        setTransactions(response.data);
-        setTotalPages(response.totalPages);
-        setTotalCount(response.totalCount);
-        setError(null);
-      } catch (err) {
-        setError('Failed to fetch transactions.');
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
+        try {
+            setIsLoading(true);
+            setError(null); // Reset error on new fetch
+            const filterStatus = statusFilter === 'all' ? undefined : statusFilter;
+            const filterSchoolId = schoolIdFilter === '' ? undefined : schoolIdFilter;
+            const response = await getTransactions({
+                page,
+                status: filterStatus,
+                schoolId: filterSchoolId,
+                sortBy,
+                order: sortOrder,
+            });
+            setTransactions(response.data);
+            setTotalPages(response.totalPages);
+            setTotalCount(response.totalCount);
+        } catch (err) {
+            setError('Failed to fetch transactions. Please try again later.');
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     fetchTransactions();
@@ -119,7 +120,7 @@ export default function TransactionsTable() {
 
   return (
     <div className="flex flex-col h-full space-y-4">
-      <div className="text-white flex flex-col sm:flex-row items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center gap-4">
         <Select value={statusFilter} onValueChange={handleFilterChange}>
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by status" />
@@ -146,10 +147,10 @@ export default function TransactionsTable() {
 
       <div className="flex-grow bg-white rounded-lg border shadow-sm overflow-auto">
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-0 bg-gray-50 z-10">
             <TableRow>
               <TableHead>
-                <Button variant="ghost" className="text-white hover:text-gray-300" onClick={() => handleSort('createdAt')}>
+                <Button variant="ghost" className="text-gray-600 hover:text-gray-900" onClick={() => handleSort('createdAt')}>
                   Date <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
@@ -158,12 +159,12 @@ export default function TransactionsTable() {
               <TableHead>School ID</TableHead>
               <TableHead>Gateway</TableHead>
               <TableHead className="text-right">
-                <Button variant="ghost" className="text-white hover:text-gray-300" onClick={() => handleSort('order_amount')}>
+                <Button variant="ghost" className="text-gray-600 hover:text-gray-900" onClick={() => handleSort('order_amount')}>
                   Order Amount <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
               <TableHead className="text-right">
-                <Button variant="ghost" className="text-white hover:text-gray-300" onClick={() => handleSort('transaction_amount')}>
+                <Button variant="ghost" className="text-gray-600 hover:text-gray-900" onClick={() => handleSort('transaction_amount')}>
                   Transaction Amount <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
@@ -175,11 +176,17 @@ export default function TransactionsTable() {
               <TableRow>
                 <TableCell colSpan={8} className="text-center h-24">Loading transactions...</TableCell>
               </TableRow>
+            ) : error ? (
+              <TableRow>
+                <TableCell colSpan={8} className="text-center h-24 text-red-500 font-medium">
+                  {error}
+                </TableCell>
+              </TableRow>
             ) : transactions.length > 0 ? (
               transactions.map((tx) => (
                 <TableRow
                   key={tx.collect_id}
-                  className="transition-all duration-200 hover:bg-gray-100/50 hover:scale-[1.01]"
+                  className="transition-all duration-200 hover:bg-gray-50"
                 >
                   <TableCell>{new Date(tx.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="font-medium">{tx.collect_id}</TableCell>
@@ -217,11 +224,11 @@ export default function TransactionsTable() {
           Showing page {page} of {totalPages} ({totalCount} total transactions)
         </div>
         <div className="flex items-center gap-2">
-          <Button size="sm" onClick={handlePreviousPage} disabled={page <= 1} className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400">
+          <Button size="sm" onClick={handlePreviousPage} disabled={page <= 1} >
             <ChevronLeft className="h-4 w-4 mr-1" />
             Previous
           </Button>
-          <Button size="sm" onClick={handleNextPage} disabled={page >= totalPages} className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400">
+          <Button size="sm" onClick={handleNextPage} disabled={page >= totalPages}>
             Next
             <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
