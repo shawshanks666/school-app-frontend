@@ -189,3 +189,12 @@ button:focus-visible {
 button{
   padding: 0.6em;
 }
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: white; /* or any color you want */
+  background-color: black;
+  }

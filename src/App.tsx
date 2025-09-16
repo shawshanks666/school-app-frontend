@@ -7,21 +7,18 @@ import {
 } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage';
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/Register'; // Import the new page
+import RegisterPage from './pages/Register';
 import StatusCheckPage from './pages/StatusCheckPage';
+import PaymentPage from './pages/Payments'; // Import the new page
 
 /**
  * A component to protect routes that require authentication.
  */
 const ProtectedRoute = () => {
   const token = localStorage.getItem('authToken');
-
-  // If there's no token, redirect to the login page
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-
-  // If there is a token, render the child routes (the dashboard)
   return <Outlet />;
 };
 
@@ -36,6 +33,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/status-check" element={<StatusCheckPage />} />
+          <Route path="/create-payment" element={<PaymentPage />} /> {/* Add the new route */}
         </Route>
       </Routes>
     </Router>
@@ -43,4 +41,3 @@ function App() {
 }
 
 export default App;
-

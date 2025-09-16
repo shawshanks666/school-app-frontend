@@ -74,7 +74,7 @@ export default function TransactionsTable() {
         const filterSchoolId = schoolIdFilter === '' ? undefined : schoolIdFilter;
         const response = await getTransactions({
           page,
-          status: filterStatus,
+          status: filterStatus?.toLowerCase(),
           schoolId: filterSchoolId,
           sortBy,
           order: sortOrder,
@@ -129,7 +129,7 @@ export default function TransactionsTable() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="success">Success</SelectItem>
+            <SelectItem value="SUCCESS">Success</SelectItem>
             <SelectItem value="INITIATED">Initiated</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="failed">Failed</SelectItem>
@@ -147,9 +147,9 @@ export default function TransactionsTable() {
         </div>
       </div>
 
-      <div className="flex-grow bg-white rounded-lg border shadow-sm overflow-auto">
+      <div className="flex-grow bg-white rounded-lg border shadow-sm overflow-auto overflow-x-hidden">
         <Table>
-          <TableHeader className="sticky top-0 bg-gray-50 z-10">
+          <TableHeader className="sticky top-0 bg-white z-10">
             <TableRow>
               <TableHead>
                 <Button
@@ -160,11 +160,11 @@ export default function TransactionsTable() {
                   Date <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
-              <TableHead className="w-[200px]">Collect ID</TableHead>
-              <TableHead>Custom Order ID</TableHead>
-              <TableHead>School ID</TableHead>
-              <TableHead>Gateway</TableHead>
-              <TableHead className="text-right">
+              <TableHead className="w-[200px] text-black">Collect ID</TableHead>
+              <TableHead className="text-black">Custom Order ID</TableHead>
+              <TableHead className="text-black">School ID</TableHead>
+              <TableHead className="text-black">Gateway</TableHead>
+              <TableHead className="text-white">
                 <Button
                   variant="ghost"
                   className="text-white hover:text-white"
@@ -173,7 +173,7 @@ export default function TransactionsTable() {
                   Order Amount <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
-              <TableHead className="text-right">
+              <TableHead className="text-white">
                 <Button
                   variant="ghost"
                   className="text-white hover:text-white"
@@ -182,7 +182,7 @@ export default function TransactionsTable() {
                   Transaction Amount <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
               </TableHead>
-              <TableHead className="text-center">Status</TableHead>
+              <TableHead className="text-center text-black">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -205,7 +205,7 @@ export default function TransactionsTable() {
               transactions.map((tx) => (
                 <TableRow
                   key={tx.collect_id}
-                  className="transition-all duration-200 hover:bg-gray-50"
+                  className="transition-all duration-200 hover:bg-gray-50 hover:scale-[1.01]"
                 >
                   <TableCell>
                     {new Date(tx.createdAt).toLocaleDateString()}
@@ -223,12 +223,13 @@ export default function TransactionsTable() {
                   <TableCell className="text-center">
                     <span
                       className={`px-2 py-1 text-xs font-semibold rounded-full capitalize ${
-                        tx.status === 'success'
+                        tx.status === 'success' || tx.status === 'SUCCESS'
                           ? 'bg-green-100 text-green-800'
                           : tx.status === 'pending' || tx.status === 'INITIATED'
                           ? 'bg-yellow-100 text-yellow-800'
                           : 'bg-red-100 text-red-800'
                       }`}
+
                     >
                       {tx.status.toLowerCase()}
                     </span>
@@ -253,18 +254,18 @@ export default function TransactionsTable() {
         <div className="flex items-center gap-2">
           <Button
             size="sm"
-            className="text-white"
             onClick={handlePreviousPage}
             disabled={page <= 1}
+            className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400"
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
             Previous
           </Button>
           <Button
             size="sm"
-            className="text-white"
             onClick={handleNextPage}
             disabled={page >= totalPages}
+            className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400"
           >
             Next
             <ChevronRight className="h-4 w-4 ml-1" />
@@ -274,3 +275,4 @@ export default function TransactionsTable() {
     </div>
   );
 }
+

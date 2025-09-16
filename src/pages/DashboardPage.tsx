@@ -11,7 +11,10 @@ export default function DashboardPage() {
             Transactions Overview
           </h1>
           <Button asChild>
-            <Link to="/status-check">Check Transaction Status</Link>
+            <Link to="/status-check"  className='text-white '>Check Transaction Status</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/create-payment"  className='text-white'>Create Payment</Link>
           </Button>
         </div>
         <TransactionsTable />

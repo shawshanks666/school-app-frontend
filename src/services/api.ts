@@ -57,4 +57,7 @@ export const register = async (email: string, password: string) => {
   return response.data;
 };
 
-
+export const createPayment = async (amount: number, callback_url: string) => {
+  const response = await apiClient.post('/payments/create-payment', { amount, callback_url });
+  return response.data;
+};
