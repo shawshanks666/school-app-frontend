@@ -23,9 +23,6 @@ export default function PaymentPage() {
     setIsLoading(true);
     setError(null);
     try {
-      // --- THIS IS THE KEY CHANGE ---
-      // We construct the callback URL to point to our dedicated status page.
-      // This is dynamic and will work on both localhost and your final deployed site.
       const callbackUrl = `${window.location.origin}/`;
       
       const response = await createPayment(Number(amount), callbackUrl);
@@ -74,7 +71,6 @@ export default function PaymentPage() {
           <CardFooter className="flex justify-between ">
             <Button >
               <Link to="/">
-                {/* <ChevronLeft className="h-4 w-4 mr-2" /> */}
                 Back to Dashboard
               </Link>
             </Button>

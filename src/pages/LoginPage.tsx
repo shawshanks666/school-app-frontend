@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label'; // CORRECT: Import the form label
+import { Label } from '@/components/ui/label'; 
 import { login } from '@/services/api';
 
 export default function LoginPage() {

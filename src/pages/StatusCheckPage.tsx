@@ -12,7 +12,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { checkTransactionStatus } from '@/services/api';
-import { ChevronLeft } from 'lucide-react';
 
 export default function StatusCheckPage() {
   const [transactionId, setTransactionId] = useState('');
@@ -66,7 +65,6 @@ export default function StatusCheckPage() {
         <CardFooter className="flex justify-between">
           <Button variant="outline" asChild>
             <Link to="/">
-              <ChevronLeft className="h-4 w-4 mr-2" />
               Back to Dashboard
             </Link>
           </Button>

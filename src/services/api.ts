@@ -24,7 +24,6 @@ export const login = async (email: string, password: string) => {
   return response.data;
 };
 
-// ... (getTransactions function remains the same)
 interface GetTransactionsParams {
     page?: number;
     limit?: number;
@@ -40,18 +39,11 @@ export const getTransactions = async (params: GetTransactionsParams = {}) => {
 };
 
 
-/**
- * Fetches the status of a single transaction by its ID.
- * @param transactionId - The collect_id of the transaction.
- */
 export const checkTransactionStatus = async (transactionId: string) => {
   const response = await apiClient.get(`/transactions/status/${transactionId}`);
   return response.data;
 };
 
-/**
- * Registers a new user.
- */
 export const register = async (email: string, password: string) => {
   const response = await apiClient.post('/auth/register', { email, password });
   return response.data;

@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { register } from '@/services/api'; // We will add this function next
+import { register } from '@/services/api'; 
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');

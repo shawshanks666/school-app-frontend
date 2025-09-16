@@ -33,7 +33,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/status-check" element={<StatusCheckPage />} />
-          <Route path="/create-payment" element={<PaymentPage />} /> {/* Add the new route */}
+          <Route path="/create-payment" element={<PaymentPage />} /> 
         </Route>
       </Routes>
     </Router>
