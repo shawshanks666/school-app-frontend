@@ -71,6 +71,8 @@ Frontend Pages Explained
 <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/82b65c3e-2b75-43e1-996e-6e4d9fb48f91" />
 
 3. Transactions Dashboard (/)
+   <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/9c63a170-9716-42db-829a-fb5ca2f3c130" />
+
 
 This is the main page of the application, accessible only to authenticated users. Its features include:
 
@@ -94,4 +96,12 @@ This is the main page of the application, accessible only to authenticated users
 
     Includes a "Back to Dashboard" link for easy navigation.
    <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/c41aa8a1-b793-4e66-87bd-1e766a6065cd" />
+4. Create Payment Page (/create-payment)
+
+    A dedicated page with a simple form where a user can create a payment.
+
+    Upon submission, it calls the backend API which then calls the external payment API and displays the status of the payment.
+
+    Includes a "Back to Dashboard" link for easy navigation.
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/47ab9433-02c3-4fc3-8372-6de19ac6e8e6" />
 
