@@ -59,6 +59,7 @@ Frontend Pages Explained
     A simple form that allows a new user to create an account by providing an email and a password.
 
     It includes validation for matching passwords and handles potential registration errors from the backend (e.g., if the email is already in use).
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/bfbd2062-e131-4256-8f30-cdc7ad7d8015" />
 
 2. Login Page (/login)
 
@@ -67,8 +68,11 @@ Frontend Pages Explained
     Upon successful login, the received JWT is stored in localStorage, and the user is redirected to the main dashboard.
 
     It includes a link to the Register page for new users.
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/82b65c3e-2b75-43e1-996e-6e4d9fb48f91" />
 
 3. Transactions Dashboard (/)
+   <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/9c63a170-9716-42db-829a-fb5ca2f3c130" />
+
 
 This is the main page of the application, accessible only to authenticated users. Its features include:
 
@@ -91,3 +95,13 @@ This is the main page of the application, accessible only to authenticated users
     Upon submission, it calls the backend API and displays the current status of that specific transaction.
 
     Includes a "Back to Dashboard" link for easy navigation.
+   <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/c41aa8a1-b793-4e66-87bd-1e766a6065cd" />
+4. Create Payment Page (/create-payment)
+
+    A dedicated page with a simple form where a user can create a payment.
+
+    Upon submission, it calls the backend API which then calls the external payment API and displays the status of the payment.
+
+    Includes a "Back to Dashboard" link for easy navigation.
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/47ab9433-02c3-4fc3-8372-6de19ac6e8e6" />
+
