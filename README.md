@@ -1,69 +1,190 @@
-# React + TypeScript + Vite
+School Payment and Dashboard Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a full-stack monorepo for a School Payment and Dashboard application, built as part of a software developer assessment. The project consists of a NestJS backend that handles payment gateway integration and a React frontend for displaying and managing transaction data.
+Tech Stack
 
-Currently, two official plugins are available:
+Backend:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Framework: NestJS (Node.js)
 
-## Expanding the ESLint configuration
+    Database: MongoDB with Mongoose
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    Authentication: JWT (JSON Web Tokens) with Passport.js
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    Styling: None (API only)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Frontend:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Framework: React with Vite
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    Styling: Tailwind CSS
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    UI Components: shadcn/ui
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Routing: React Router
+
+    API Communication: Axios
+
+Backend Setup
+
+The backend is a NestJS microservice responsible for handling user authentication, payment processing, and providing data to the frontend.
+Prerequisites
+
+    Node.js (v18 or later recommended)
+
+    npm or yarn
+
+    A MongoDB Atlas account for the database connection string.
+
+1. Installation
+
+    Clone the repository and navigate into the backend folder (e.g., school-app-backend).
+
+    git clone <your-repo-url>
+    cd <your-repo-folder>/school-app-backend
+
+    Install the required dependencies.
+
+    npm install
+
+2. Environment Variables
+
+    Create a .env file in the root of the backend folder.
+
+    Copy the contents of .env.example (if provided) or add the following required variables:
+
+    # MongoDB Connection
+    MONGO_URI=your_mongodb_atlas_connection_string
+
+    # JWT Secret for app authentication
+    JWT_SECRET=your_super_secret_and_long_jwt_string
+
+    # Payment Gateway Credentials (from assessment)
+    PG_KEY=edvtest01
+    API_KEY=your_payment_gateway_api_key
+    SCHOOL_ID=65b0e6293e9f76a9694d84b4
+
+3. Running the Server
+
+To start the backend development server, run:
+
+npm run start:dev
+
+The API will be available at http://localhost:3000.
+Backend API Endpoints
+
+All endpoints under /transactions and /payments are protected and require a valid JWT Bearer token in the Authorization header.
+Authentication (/auth)
+
+    POST /auth/register: Creates a new user account.
+
+        Body: { "email": "user@example.com", "password": "yourpassword" }
+
+    POST /auth/login: Authenticates a user and returns an access_token.
+
+        Body: { "email": "user@example.com", "password": "yourpassword" }
+
+Payments (/payments)
+
+    POST /payments/create-payment: Creates a new payment request and returns a payment URL from the provider.
+
+        Body: { "amount": 1500, "callback_url": "https://your-frontend.com/success" }
+
+    POST /payments/webhook: (Unprotected) An endpoint for the payment gateway to send transaction status updates.
+
+Transactions (/transactions)
+
+    GET /transactions: Fetches a paginated, sorted, and filtered list of all transactions.
+
+        Query Parameters (Optional):
+
+            page (number, default: 1)
+
+            limit (number, default: 10)
+
+            status (string, e.g., "success", "failed")
+
+            schoolId (string)
+
+            sortBy (string, e.g., "createdAt", "order_amount")
+
+            order (string, "asc" or "desc")
+
+    GET /transactions/status/:id: Fetches the current status of a single transaction by its unique ID.
+
+Frontend Setup
+
+The frontend is a React application built with Vite that provides a user-friendly dashboard for viewing transaction data.
+Prerequisites
+
+    Node.js (v18 or later recommended)
+
+    npm or yarn
+
+1. Installation
+
+    Navigate into the frontend folder (e.g., school-app-frontend).
+
+    cd <your-repo-folder>/school-app-frontend
+
+    Install the required dependencies.
+
+    npm install
+
+2. Environment Variables
+
+The frontend uses an environment variable to know the URL of the backend API.
+
+    Create a file named .env.local in the root of the frontend folder.
+
+    Add the following variable:
+
+    VITE_API_BASE_URL=http://localhost:3000
+
+    Note: If you deploy your backend, update this URL to your live backend address.
+
+3. Running the App
+
+To start the frontend development server, run:
+
+npm run dev
+
+The application will be available at http://localhost:5173 (or another available port).
+Frontend Pages Explained
+1. Register Page (/register)
+
+    A simple form that allows a new user to create an account by providing an email and a password.
+
+    It includes validation for matching passwords and handles potential registration errors from the backend (e.g., if the email is already in use).
+
+2. Login Page (/login)
+
+    A secure form for users to sign in.
+
+    Upon successful login, the received JWT is stored in localStorage, and the user is redirected to the main dashboard.
+
+    It includes a link to the Register page for new users.
+
+3. Transactions Dashboard (/)
+
+This is the main page of the application, accessible only to authenticated users. Its features include:
+
+    Data Table: Displays all transactions with columns for Date, Collect ID, Custom Order ID, School ID, Gateway, Order Amount, Transaction Amount, and Status.
+
+    Filtering: Users can filter the table by status using a dropdown menu or search for a specific schoolId.
+
+    Sorting: Column headers for "Date", "Order Amount", and "Transaction Amount" are clickable, allowing users to sort the data in ascending or descending order.
+
+    Pagination: "Previous" and "Next" buttons allow users to navigate through pages of transactions.
+
+    Persistent State: All filter, sort, and page settings are stored in the URL, allowing users to bookmark or share specific views.
+
+    Hover Animation: Table rows have a subtle "grow" animation on hover to improve user experience.
+
+4. Status Check Page (/status-check)
+
+    A dedicated page with a simple form where a user can enter a Transaction ID (collect_id).
+
+    Upon submission, it calls the backend API and displays the current status of that specific transaction.
+
+    Includes a "Back to Dashboard" link for easy navigation.
