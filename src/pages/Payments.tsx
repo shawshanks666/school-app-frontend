@@ -12,7 +12,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createPayment } from '@/services/api';
-import { ChevronLeft } from 'lucide-react';
 
 export default function PaymentPage() {
   const [amount, setAmount] = useState('');
