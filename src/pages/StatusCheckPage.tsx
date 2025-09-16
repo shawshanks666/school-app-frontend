@@ -63,7 +63,7 @@ export default function StatusCheckPage() {
           {error && <p className="pt-2 text-center text-sm text-red-500">{error}</p>}
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" asChild>
+          <Button variant="outline" className='back'asChild>
             <Link to="/">
               Back to Dashboard
             </Link>
