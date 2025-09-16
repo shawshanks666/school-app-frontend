@@ -105,4 +105,7 @@ This is the main page of the application, accessible only to authenticated users
 
     Includes a "Back to Dashboard" link for easy navigation.
 <img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/47ab9433-02c3-4fc3-8372-6de19ac6e8e6" />
+<img width="1918" height="1199" alt="image" src="https://github.com/user-attachments/assets/20c410d1-3d24-40c2-9449-73a601640d0e" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/4581b274-98aa-46dc-965f-409717a8155f" />
+
 
