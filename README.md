@@ -1,3 +1,5 @@
+https://school-app-frontend-nu.vercel.app/ (try opening on incognito mode for cleared cache if necessay)
+
 School Payment and Dashboard Application
 
 This is a full-stack monorepo for a School Payment and Dashboard application, built as part of a software developer assessment. The project consists of a NestJS backend that handles payment gateway integration and a React frontend for displaying and managing transaction data.
